@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "REACT100 Assignment - VSTDA",
   "main": "server/index.js",
+  "babel": {
+    "presets": ["es2015"]
+  },
   "scripts": {
-    "devmode": "webpack",
+    "devmode": "webpack-dev-server",
     "build": "npm run less && webpack",
     "start": "node server/index.js",
     "less": "lessc src/css/style.less dist/css/style.css",

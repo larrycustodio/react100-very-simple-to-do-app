@@ -32,4 +32,10 @@ module.exports = {
       },
     ],
   },
+
+  devServer: {
+    port: 3000,
+    contentBase: './public',
+    inline: true
+  }
 };
