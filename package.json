@@ -52,11 +52,21 @@
     "react-addons-test-utils": "^15.6.0",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
-    "url-loader": "^0.5.9"
+    "url-loader": "^0.5.9",
+    "webpack": "^3.6.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/origincodeacademy/startnow-react100-vstda.git"
+    "url": "git+https://github.com/origincodeacademy/startnow-react100-vstda.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/origincodeacademy/startnow-react100-vstda/issues"
+  },
+  "homepage": "https://github.com/origincodeacademy/startnow-react100-vstda#readme",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": ""
 }
