@@ -1,41 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  background: #FC466B;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+  background: #FC466B;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #3F5EFB, #FC466B);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
 .no-padding {
   padding: 0 !important;
 }
-
 .no-margin {
   margin: 0 !important;
 }
-
 .white {
   color: white !important;
 }
-
 .strike-through {
   text-decoration: line-through;
 }
-
 textarea {
   width: 100%;
   max-width: 100%;
   min-height: 8em;
   max-height: 16em;
 }
-
 strong + small {
-    display: block;
+  display: block;
 }
-
 input[type=checkbox] {
   margin-right: 1em;
 }
-
 div.pull-right a {
   margin-left: 1em;
 }
