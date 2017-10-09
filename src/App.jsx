@@ -15,38 +15,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newTodo: {
-        text: '',
-        priority: '',
-        editEnabled: false
-      },
       todoList: [
         {
           text: 'Take out the trash',
           priority: 1,
-          editEnabled: false          
+          editEnabled: false
         },
         {
           text: 'sample list item',
           priority: 2,
-          editEnabled: false          
+          editEnabled: false
         }
       ]
     }
     this.onAddTodo = this.onAddTodo.bind(this);
-    this.onChangeTodoInput = this.onChangeTodoInput.bind(this);
   }
-  onChangeTodoInput(e) {
-    const target = e.target;
-    const newTodo = this.state.newTodo; 
-    this.setState({
-      newTodo: {
-        [target.name]: target.value
-      }
-    });
-  }
-  onAddTodo(e) {
-    e.preventDefault();
+
+  onAddTodo(event) {
+    event.preventDefault();
     const currTodoList = this.state.todoList.slice();
     const newTodoForm = this.state.newTodo;
     let todoList = currTodoList.push(newTodoForm);
@@ -54,11 +40,11 @@ class App extends Component {
       todoList: currTodoList
     });
   }
-  onEditTodo(e){
+  onEditTodo(event){
     //pass an id value
-    console.log(e.target);
+    console.log(event.target);
   }
-  onDelete(e){
+  onDelete(event){
     //pass a delete method 
     console.log('todo delete this guy');
   }
@@ -69,16 +55,11 @@ class App extends Component {
         <hr className='my-3' />
         <div className='row'>
           <div className='col-lg-4 mb-4 mr-auto'>
-            <NewTodoForm onChange={this.onChangeTodoInput}
-              onClick={this.onAddTodo}
-            />
+            <NewTodoForm
+              onClick={this.onAddTodo} />
           </div>
           <div className='col-lg-8'>
-            <TodoItemsContainer
-              todoList={this.state.todoList}
-              onEdit={this.onEditTodo}
-              onDelete={this.onDelete}
-            />
+            <TodoItemsContainer />
           </div>
         </div>
       </div>
