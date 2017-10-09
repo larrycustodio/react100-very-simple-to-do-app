@@ -1,114 +1,66 @@
 import React, { Component } from 'react';
-import TodoItem from './todoItem';
+import NewTodoForm from './NewTodoForm';
+import TodoItemsContainer from './TodoItemsContainer';
 
 function TitleContainer(props) {
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid text-white'>
       <h1 className='dislay-3'>Very Simple Todo App</h1>
       <p className='lead'>Track all of the things</p>
-    </div>
-  );
-} 
-function TodoCreateItem(props){
-  return (
-    <div className='card'>
-      <div className='card-header'>
-        Add New Todo
-      </div>
-      <form className='card-body m-3'>
-        <fieldset>
-          <div className='form-group'>
-            <label htmlFor='createTodoText'>
-              <strong>I want to...</strong>
-            </label>
-            <textarea 
-            name='text'
-            className='form-control'
-            onChange={props.onChange}
-            >
-            </textarea>
-          </div>
-          <div className='form-group'>
-            <label htmlFor='createTodoPriority'>
-              <strong>How much of a priority is this?</strong>
-            </label>
-            <select 
-            name='priority'
-            className='form-control'
-            onChange={props.onChange}
-            >
-              <option value='1'>1</option>
-              <option value='2'>2</option>
-              <option value='3'>3</option>
-              <option value='4'>4</option>              
-            </select>
-          </div>
-        </fieldset>
-      </form>
-      <div className='card-footer'>
-        <button 
-        className='btn btn-success btn-block'
-        onClick={props.onClick}
-        >
-          Calculate
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function TodoItemsContainer(props){
-  return (
-    <div className='card'>
-      <div className='card-header'>
-        View Todos
-      </div>
-      <div className='card-body'>
-          {props.todoList.map(todoItem => {
-            
-            {/* <TodoItem
-            key={'todo-' + todoItem.priority}
-            text={todoItem.text}
-            priority={todoItem.priority}
-            /> */}
-          })}
-      </div>
     </div>
   );
 }
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
+      newTodo: {
+        text: '',
+        priority: '',
+        editEnabled: false
+      },
       todoList: [
         {
           text: 'Take out the trash',
           priority: 1,
+          editEnabled: false          
         },
         {
-          text: 'Pick up milk from the market',
-          priority: '2',
-        },
-        {
-          text: 'Go to the gym and exercise',
-          priority: '3' 
+          text: 'sample list item',
+          priority: 2,
+          editEnabled: false          
         }
       ]
     }
-    this.handlePostTodo = this.handlePostTodo.bind(this);
-    this.handleCreateTodo = this.handleCreateTodo.bind(this);
+    this.onAddTodo = this.onAddTodo.bind(this);
+    this.onChangeTodoInput = this.onChangeTodoInput.bind(this);
   }
-  handleCreateTodo(e){
+  onChangeTodoInput(e) {
     const target = e.target;
-    const createTodoData = {
-      [target.name]: target.value
-    }
+    const newTodo = this.state.newTodo; 
+    this.setState({
+      newTodo: {
+        [target.name]: target.value
+      }
+    });
   }
-  handlePostTodo(e){
+  onAddTodo(e) {
     e.preventDefault();
-    let todoList = this.state.todoList;
-    this.setState(todoList);
+    const currTodoList = this.state.todoList.slice();
+    const newTodoForm = this.state.newTodo;
+    let todoList = currTodoList.push(newTodoForm);
+    this.setState({
+      todoList: currTodoList
+    });
+  }
+  onEditTodo(e){
+    //pass an id value
+    console.log(e.target);
+  }
+  onDelete(e){
+    //pass a delete method 
+    console.log('todo delete this guy');
   }
   render() {
     return (
@@ -117,14 +69,15 @@ class App extends Component {
         <hr className='my-3' />
         <div className='row'>
           <div className='col-lg-4 mb-4 mr-auto'>
-            <TodoCreateItem
-            onChange={this.handleCreateTodo} 
-            onClick={this.handlePostTodo}
+            <NewTodoForm onChange={this.onChangeTodoInput}
+              onClick={this.onAddTodo}
             />
           </div>
           <div className='col-lg-8'>
-            <TodoItemsContainer 
-            todoList={this.state.todoList}
+            <TodoItemsContainer
+              todoList={this.state.todoList}
+              onEdit={this.onEditTodo}
+              onDelete={this.onDelete}
             />
           </div>
         </div>

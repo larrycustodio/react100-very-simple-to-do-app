@@ -4,7 +4,9 @@
   "description": "REACT100 Assignment - VSTDA",
   "main": "server/index.js",
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   },
   "scripts": {
     "devmode": "webpack-dev-server",
