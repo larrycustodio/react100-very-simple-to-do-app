@@ -26,6 +26,7 @@ function NewTodoPriority(props) {
         name='priority'
         id='createTodoPriority'
         className='form-control create-todo-priority'
+        value={props.priority}
         onChange={props.onChange} >
         <option value='1'>Low Priority</option>
         <option value='2'>Medium Priority</option>
@@ -39,7 +40,7 @@ class NewTodoForm extends Component {
     super(props);
     this.state = {
       text: '',
-      priority: '',
+      priority: 1,
     }
     this.onAddInputChange = this.onAddInputChange.bind(this);
     this.onAddClick = this.onAddClick.bind(this);
@@ -65,12 +66,13 @@ class NewTodoForm extends Component {
             <NewTodoText 
             onChange={this.onAddInputChange} />
             <NewTodoPriority 
-            onChange={this.onAddInputChange} />
+            onChange={this.onAddInputChange}
+            priority={this.state.priority} />
           </fieldset>
         </form>
         <div className='card-footer'>
           <button onClick={this.onAddClick}
-            className='btn btn-success btn-block'>
+            className='btn btn-success btn-block .create-todo'>
             Add
           </button>
         </div>

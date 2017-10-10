@@ -4,28 +4,28 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.list;
-    this.onEditEnable = this.onEditEnable.bind(this);
-    this.onEditTodo = this.onEditTodo.bind(this);
-    this.onDeleteTodo = this.onDeleteTodo.bind(this);
-    this.onCloseEdit = this.onCloseEdit.bind(this);
+    this.onEditToggle = this.onEditToggle.bind(this);
+    this.onEditTodoList = this.onEditTodoList.bind(this);
     this.onSaveEdit = this.onSaveEdit.bind(this);
+    this.onDeleteTodo = this.onDeleteTodo.bind(this);
   }
-  onEditEnable(event) {
+  onEditToggle(event) {
     this.setState({
-      editEnabled: true
-    });
-  }
-  onCloseEdit(event) {
-    this.setState({
-      editEnabled: false
+      editEnabled: !this.state.editEnabled
     })
   }
-  onEditTodo(event) {
-    const todoList = [...this.state.todoList];
-    
+  onEditTodoList(event) {
+    const todoList = this.state;
+    console.log(todoList);
+    this.setState({
+      [event.target.name]:event.target.value
+    });
   }
   onSaveEdit(event) {
     event.preventDefault();
+    const todoEdits = this.state;
+    this.setState(todoEdits);
+    this.props.onSaveEdit(this.state);
   }
   onDeleteTodo(event) {
     this.props.onDeleteTodo(this.state);
@@ -44,7 +44,7 @@ class ListItem extends Component {
         <div className={'list-group-item list-group-item' + todoColor}>
           <div 
           className='close-edit close float-right'
-          onClick={this.onCloseEdit}>
+          onClick={this.onEditToggle}>
           ×
           </div>
           <form className='edit-form m-2'>
@@ -56,7 +56,7 @@ class ListItem extends Component {
                 name='text'
                 id='editTodoText'
                 className='update-todo-text form-control'
-                onChange={this.onEditTodo}
+                onChange={this.onEditTodoList}
                 value={this.state.text}>
               </textarea>
             </div>
@@ -68,7 +68,7 @@ class ListItem extends Component {
                 name='priority'
                 id='editTodoPriority'
                 className='update-todo-priority form-control'
-                onChange={this.onEditTodo}
+                onChange={this.onEditTodoList}
                 value={this.state.priority}>
                 <option value='1'>Low Priority</option>
                 <option value='2'>Medium Priority</option>
@@ -95,12 +95,12 @@ class ListItem extends Component {
           </span>
           <span className='float-right'>
             <strong
-              className='edit-todo mr-3'
-              onClick={this.onEditEnable}>
+              className='mr-3 edit-todo'
+              onClick={this.onEditToggle}>
               edit
           </strong>
             <strong
-              className='delete-todo mr-3'
+              className='mr-3 delete-todo'
               onClick={this.onDeleteTodo}>
               delete
           </strong>
@@ -124,7 +124,8 @@ function TodoItemsContainer(props) {
               <ListItem 
                 key={parseInt(Date.now() * Math.random())}
                 list={listItem}
-                onDeleteTodo={props.onDelete} />
+                onDeleteTodo={props.onDelete} 
+                onSaveEdit={props.onSaveEdit} />
             );
           })}
         </ul>

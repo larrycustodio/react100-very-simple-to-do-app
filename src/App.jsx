@@ -19,9 +19,10 @@ class App extends Component {
     }
     this.onAddTodo = this.onAddTodo.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onSaveEdit = this.onSaveEdit.bind(this);
   }
 
-  onAddTodo({text,priority}) {
+  onAddTodo({ text, priority }) {
     const todoList = this.state.todoList;
     const newTodo = {
       id: Date.now(),
@@ -29,25 +30,33 @@ class App extends Component {
       priority: parseInt(priority),
       editEnabled: false
     }
-    const newTodoList = [...todoList,newTodo];
+    const newTodoList = [...todoList, newTodo];
     this.setState({
       todoList: newTodoList
     });
   }
-  
-  onEdit(event){
-    console.log('todo edit this guy');
-  }
- 
-  onDelete(todoItem){
-    const todoList = [...this.state.todoList];
-    const todoDeleteIndex = todoList.indexOf(todoItem);
-    todoList.splice(todoDeleteIndex,1);
+
+  onSaveEdit(editTodo) {
+    editTodo.editEnabled = false;
+    const newTodoList = [...this.state.todoList];
+    const todoEditIndex = newTodoList.map((todoItem) => {
+      return todoItem.id
+    }).indexOf(editTodo.id);
+    newTodoList.splice(todoEditIndex,1,editTodo);
     this.setState({
-      todoList: todoList
+      todoList: newTodoList
+    });
+  }
+
+  onDelete(todoItem) {
+    const newTodoList = [...this.state.todoList];
+    const todoDeleteIndex = newTodoList.indexOf(todoItem);
+    newTodoList.splice(todoDeleteIndex, 1);
+    this.setState({
+      todoList: newTodoList
     })
   }
-  
+
   render() {
     return (
       <div className='container p-3'>
@@ -59,10 +68,10 @@ class App extends Component {
               onAddTodo={this.onAddTodo} />
           </div>
           <div className='col-lg-8'>
-            <TodoItemsContainer 
+            <TodoItemsContainer
               list={this.state.todoList}
-              onEdit={this.onEdit}
-              onDelete={this.onDelete} />
+              onDelete={this.onDelete}
+              onSaveEdit={this.onSaveEdit} />
           </div>
         </div>
       </div>
