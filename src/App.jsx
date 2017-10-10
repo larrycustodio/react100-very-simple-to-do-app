@@ -34,22 +34,28 @@ class App extends Component {
     this.onAddTodo = this.onAddTodo.bind(this);
   }
 
-  onAddTodo({text,priority, isEnabled}) {
-    
-    console.log("new todolist!");
-    consoole.log(this.state.todoList);
+  onAddTodo({text,priority}) {
+    const todoList = this.state.todoList;
+    const newTodo = {
+      id: this.state.todoList.length + 1,
+      text: text,
+      priority: parseInt(priority),
+      editEnabled: false
+    }
+    const newTodoList = [...todoList,newTodo];
+    this.setState({
+      todoList: newTodoList
+    });
   }
-
+  
   onEditTodo(event){
-    //pass an id value
-    console.log(event.target);
+    console.log('todo edit this guy');
   }
 
-  onDelete(event){
-    //pass a delete method 
+  onDeleteTodo(event){
     console.log('todo delete this guy');
   }
-
+  
   render() {
     return (
       <div className='container p-3'>
@@ -62,7 +68,9 @@ class App extends Component {
           </div>
           <div className='col-lg-8'>
             <TodoItemsContainer 
-              list={this.state.todoList} />
+              list={this.state.todoList}
+              onEdit={this.onEditTodo}
+              onDelete={this.onDeleteTodo} />
           </div>
         </div>
       </div>
