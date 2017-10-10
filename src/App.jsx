@@ -15,29 +15,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todoList: [
-        {
-          id: 1,
-          text: 'Take out the trash',
-          priority: 1,
-          editEnabled: false,
-
-        },
-        {
-          id: 2,
-          text: 'sample list item',
-          priority: 2,
-          editEnabled: false
-        }
-      ]
+      todoList: []
     }
     this.onAddTodo = this.onAddTodo.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   onAddTodo({text,priority}) {
     const todoList = this.state.todoList;
     const newTodo = {
-      id: this.state.todoList.length + 1,
+      id: Date.now(),
       text: text,
       priority: parseInt(priority),
       editEnabled: false
@@ -48,12 +35,17 @@ class App extends Component {
     });
   }
   
-  onEditTodo(event){
+  onEdit(event){
     console.log('todo edit this guy');
   }
-
-  onDeleteTodo(event){
-    console.log('todo delete this guy');
+ 
+  onDelete(todoItem){
+    const todoList = [...this.state.todoList];
+    const todoDeleteIndex = todoList.indexOf(todoItem);
+    todoList.splice(todoDeleteIndex,1);
+    this.setState({
+      todoList: todoList
+    })
   }
   
   render() {
@@ -69,8 +61,8 @@ class App extends Component {
           <div className='col-lg-8'>
             <TodoItemsContainer 
               list={this.state.todoList}
-              onEdit={this.onEditTodo}
-              onDelete={this.onDeleteTodo} />
+              onEdit={this.onEdit}
+              onDelete={this.onDelete} />
           </div>
         </div>
       </div>

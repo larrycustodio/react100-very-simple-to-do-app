@@ -8,7 +8,8 @@ function NewTodoText(props) {
       </label>
       <textarea
         name='text'
-        className='form-control'
+        id='createTodoText'
+        className='form-control create-todo-text'
         onChange={props.onChange} >
       </textarea>
     </div>
@@ -23,7 +24,8 @@ function NewTodoPriority(props) {
       </label>
       <select
         name='priority'
-        className='form-control'
+        id='createTodoPriority'
+        className='form-control create-todo-priority'
         onChange={props.onChange} >
         <option value='1'>Low Priority</option>
         <option value='2'>Medium Priority</option>
