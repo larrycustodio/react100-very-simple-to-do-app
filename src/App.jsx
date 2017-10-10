@@ -17,11 +17,14 @@ class App extends Component {
     this.state = {
       todoList: [
         {
+          id: 1,
           text: 'Take out the trash',
           priority: 1,
-          editEnabled: false
+          editEnabled: false,
+
         },
         {
+          id: 2,
           text: 'sample list item',
           priority: 2,
           editEnabled: false
@@ -31,23 +34,22 @@ class App extends Component {
     this.onAddTodo = this.onAddTodo.bind(this);
   }
 
-  onAddTodo(event) {
-    event.preventDefault();
-    const currTodoList = this.state.todoList.slice();
-    const newTodoForm = this.state.newTodo;
-    let todoList = currTodoList.push(newTodoForm);
-    this.setState({
-      todoList: currTodoList
-    });
+  onAddTodo({text,priority, isEnabled}) {
+    
+    console.log("new todolist!");
+    consoole.log(this.state.todoList);
   }
+
   onEditTodo(event){
     //pass an id value
     console.log(event.target);
   }
+
   onDelete(event){
     //pass a delete method 
     console.log('todo delete this guy');
   }
+
   render() {
     return (
       <div className='container p-3'>
@@ -56,10 +58,11 @@ class App extends Component {
         <div className='row'>
           <div className='col-lg-4 mb-4 mr-auto'>
             <NewTodoForm
-              onClick={this.onAddTodo} />
+              onAddTodo={this.onAddTodo} />
           </div>
           <div className='col-lg-8'>
-            <TodoItemsContainer />
+            <TodoItemsContainer 
+              list={this.state.todoList} />
           </div>
         </div>
       </div>

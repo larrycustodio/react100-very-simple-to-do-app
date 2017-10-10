@@ -38,19 +38,19 @@ class NewTodoForm extends Component {
     this.state = {
       text: '',
       priority: '',
-      isEditEnabled: false
     }
     this.onAddInputChange = this.onAddInputChange.bind(this);
     this.onAddClick = this.onAddClick.bind(this);
   }
+
   onAddInputChange(event) {
-    console.log(this.state);
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
+
   onAddClick(event){
-    console.log(this.state);
+    this.props.onAddTodo(this.state);
   }
   render() {
     return (

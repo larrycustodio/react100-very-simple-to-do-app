@@ -8,10 +8,8 @@ class TodoItemsContainer extends Component {
     }
   }
   onEdit(event){
-
   }
   onDelete(event){
-
   }
   render() {
     return (
@@ -21,6 +19,7 @@ class TodoItemsContainer extends Component {
         </div>
         <div className='card-body'>
           <ul className='list-group'>
+            
           </ul>
         </div>
       </div>
